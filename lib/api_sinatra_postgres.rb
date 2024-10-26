@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'sequel'
 require 'sequel/extensions/seed'
-require  'pg'
+require 'pg'
 require 'json'
 require 'multi_json'
 require 'sinatra'
