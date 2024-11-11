@@ -61,5 +61,23 @@ namespace :db do
     Sequel::Migrator.run(db, migrations_directory)
     Rake::Task['db:version'].execute
   end
+
+  desc "Perform rollback to specified target o#r full rollback as default"
+  task :seed do
+    puts 'seed task running'
+    Sequel.extension :seed 				# Load the extension
+    Sequel::Seed.setup :development 		# Set the environment
+    DB = Sequel.connect(
+      adapter: :postgres,
+      database: 'sinatra_seq',
+      host: 'localhost',
+      password: 'password',
+      user: 'sinatra_admin',
+      max_connections: 10,
+    # logger: Logger.new('log/db.log')
+      )
+    Sequel::Seeder.apply(DB, './seeds') 		# Apply the seeds/fixtures
+  end
+
 end
 
